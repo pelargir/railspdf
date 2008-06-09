@@ -48,8 +48,6 @@ module RailsPDF
       end
  	  	pdf.compressed = true if RAILS_ENV != 'development'
  	  	
- 	  	File.open("foo.txt",File::CREAT|File::TRUNC|File::RDWR).write(template.source)
- 	  	
 	    eval template.source, nil, "#{@action_view.base_path}/#{@action_view.first_render}.#{@action_view.finder.pick_template_extension(@action_view.first_render)}" 
    		pdf.render
   	end
