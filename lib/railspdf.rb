@@ -9,8 +9,8 @@ module RailsPDF
 
   	def initialize(action_view)
     		@action_view = action_view
-  			prefix = action_view.controller.class.to_s.gsub(/Controller/, '')
-        self.class.send(:include, "#{prefix}Helper".constantize)
+  			helper_name = "#{action_view.controller.controller_name.classify}Helper"
+        self.class.send(:include, helper_name.constantize) if Object.const_defined?(helper_name)
   	end
 
   
