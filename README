@@ -1,10 +1,14 @@
 railspdf
 
-Adds pdf-writer support to Rails
+Adds pdf-writer support to Rails 2.2
 
 
 Usage
 -----
+
+Before going further, do not forget to add the following line in one of our initializers file:
+
+	ActionView::Template.register_template_handler 'rpdf', RailsPDF::PDFRender
 
 To begin rendering PDFs, simply create a view with a .rpdf extension and paste in the code:
 
@@ -32,6 +36,30 @@ Sample Controller
     end
   end
 
+Another way
+-----------
+
+	class OrdersController < ApplicationController
+		def show
+			@order = Order.find(params[:id])
+    
+	    respond_to do |format|
+	      format.html
+	      format.pdf do 
+	        @rails_pdf_name = "order_#{@order.token}.pdf"
+	        render :layout => false
+	      end
+	    end
+		end
+	end
+
+Note: you have to register the mime-type for pdf files. The line below has to be added to your config/initializer/mime_types.rb file:
+
+	Mime::Type.register "application/pdf", :pdf
+
+To render the link in your views to generate the pdf, just do this:
+	
+	<%= link_to 'pdf', formatted_order_path(order, :pdf) %>
 
 Sample View
 -----------

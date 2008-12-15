@@ -13,23 +13,21 @@ module RailsPDF
         self.class.send(:include, helper_name.constantize) if Object.const_defined?(helper_name)
   	end
 
-  
     def render(template, local_assigns = {})
     	
     	#get the instance variables setup	    	
    		@action_view.controller.instance_variables.each do |v|
-       		instance_variable_set(v, @action_view.controller.instance_variable_get(v))
+        instance_variable_set(v, @action_view.controller.instance_variable_get(v))
       end
 		
 			#keep ie happy
 			if @action_view.controller.request.env['HTTP_USER_AGENT'] =~ /msie/i
-        		@action_view.controller.headers['Pragma'] ||= ''
-        		@action_view.controller.headers['Cache-Control'] ||= ''
+        @action_view.controller.headers['Pragma'] ||= ''
+        @action_view.controller.headers['Cache-Control'] ||= ''
    		else
-        		@action_view.controller.headers['Pragma'] ||= 'no-cache'
-        		@action_view.controller.headers['Cache-Control'] ||= 'no-cache, must-revalidate'
+        @action_view.controller.headers['Pragma'] ||= 'no-cache'
+        @action_view.controller.headers['Cache-Control'] ||= 'no-cache, must-revalidate'
    		end
-   		
    		
    		@action_view.controller.headers["Content-Type"] ||= 'application/pdf'
 			if @rails_pdf_name
@@ -48,12 +46,12 @@ module RailsPDF
       end
  	  	pdf.compressed = true if RAILS_ENV != 'development'
  	  	
-	    eval template.source, nil, "#{@action_view.base_path}/#{@action_view.first_render}.#{@action_view.finder.pick_template_extension(@action_view.first_render)}" 
+	    eval template.source, nil
    		pdf.render
   	end
   	
-  	def compilable?
-      false
+  	def self.call(template)
+      "RailsPDF::PDFRender.new(self).render(template, local_assigns)"
     end
   end
 end

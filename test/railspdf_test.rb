@@ -6,11 +6,6 @@ module SomeHelper; end
 class AnotherController < ActionController::Base; end
 
 class RailsPDF::PDFRenderTest < Test::Unit::TestCase
-  def test_should_not_be_compilable
-    view = stub(:controller => SomeController.new)
-    pdf = RailsPDF::PDFRender.new(view)
-    assert !pdf.compilable?
-  end
   
   def test_should_not_barf_on_missing_helper
     view = stub(:controller => AnotherController.new)
