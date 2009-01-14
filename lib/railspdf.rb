@@ -12,6 +12,14 @@ module RailsPDF
   			helper_name = "#{action_view.controller.controller_name.classify}Helper"
         self.class.send(:include, helper_name.constantize) if Object.const_defined?(helper_name)
   	end
+  	
+  	def self.compilable?
+      false
+    end
+
+    def compilable?
+      self.class.compilable?
+    end
 
     def render(template, local_assigns = {})
     	
