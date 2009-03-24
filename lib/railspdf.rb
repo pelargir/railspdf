@@ -7,12 +7,12 @@ module RailsPDF
 	class PDFRender < ActionView::Base
   	include ApplicationHelper
 
-  	def initialize(action_view)
-    		@action_view = action_view
-  			helper_name = "#{action_view.controller.controller_name.classify}Helper"
-        self.class.send(:include, helper_name.constantize) if Object.const_defined?(helper_name)
+    def initialize(action_view)
+      @action_view = action_view
+      helper_name = "#{action_view.controller.controller_name.classify}Helper"
+      action_view.class.send(:include, helper_name.constantize) if Object.const_defined?(helper_name)
   	end
-  	
+
   	def self.compilable?
       false
     end
