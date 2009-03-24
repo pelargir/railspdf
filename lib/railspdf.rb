@@ -37,14 +37,14 @@ module RailsPDF
         @action_view.controller.headers['Cache-Control'] ||= 'no-cache, must-revalidate'
    		end
    		
-   		@action_view.controller.headers["Content-Type"] ||= 'application/pdf'
+   		@action_view.controller.headers['Content-Type'] = 'application/pdf'
 			if @rails_pdf_name
-				@action_view.controller.headers["Content-Disposition"] ||= 'attachment; filename="' + @rails_pdf_name + '"'
+				@action_view.controller.headers['Content-Disposition'] = 'attachment; filename="' + @rails_pdf_name + '"'
 			elsif @rails_pdf_inline
 				#set no headers
 			else #rails_pdf_inline was set to false.  set filename = controller name
 				 #since we weren't provided a custom name
-				@action_view.controller.headers["Content-Disposition"] ||= 'attachment; filename="' + @action_view.controller.controller_name + '.pdf' + '"'
+				@action_view.controller.headers['Content-Disposition'] = 'attachment; filename="' + @action_view.controller.controller_name + '.pdf' + '"'
 			end
       
       if @landscape
