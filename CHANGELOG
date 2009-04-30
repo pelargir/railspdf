@@ -1,4 +1,6 @@
-* Fixed case where matching view helper might not be available. [Matthew Bass]
+* Fixes for 2.3.2 [Matthew Bass]
+
+* Fixed case where matching view helper might not be available [Matthew Bass]
 
 * Now compatible with Rails 2.1.0 [Matthew Bass]
 
