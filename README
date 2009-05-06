@@ -36,6 +36,7 @@ Sample Controller
     end
   end
 
+
 Another way
 -----------
 
@@ -61,11 +62,21 @@ To render the link in your views to generate the pdf, just do this:
 	
 	<%= link_to 'pdf', formatted_order_path(order, :pdf) %>
 
+
 Sample View
 -----------
 
   pdf.select_font "Times-Roman"
   pdf.text @content, :font_size => 72, :justification => :center
+
+
+Helpers
+-------
+
+View helpers can be used inside your .rpdf templates. By default, the view helper with the
+same name as your controller is made available to your views. For example, if your controller
+is named UsersController, the helper named UsersHelper will be included. Note that the
+pluralization of the controller and helper names must match.
 
 
 Misc
